@@ -1,0 +1,6 @@
+include __pkginfo__.py
+include LICENSE
+include requirements.txt
+prune **/__pycache__
+recursive-include tox_recreate_hook *.pyi
+include tox_recreate_hook/py.typed
