@@ -90,3 +90,18 @@ To install with ``pip``:
 	$ python -m pip install git+https://github.com/domdfcoding/tox-recreate-hook
 
 .. end installation
+
+
+Example configuration
+
+.. code-block:: ini
+
+	[testenv:docs]
+	setenv = SHOW_TODOS = 1
+	basepython = python3.8
+	changedir = {toxinidir}/doc-source
+	deps =
+	    -r{toxinidir}/requirements.txt
+	    -r{toxinidir}/doc-source/requirements.txt
+	commands = sphinx-build -M html . ./build {posargs}
+	recreate_hook = builtin.rmdir("{toxinidir}/doc-source/build")
