@@ -2,7 +2,7 @@
 #
 #  hooks.py
 """
-Built in hooks for ``tox-recreate-hook`.
+Built in hooks for ``tox-recreate-hook``.
 
 These are exposed via the ``builtin`` pseudo-module.
 """

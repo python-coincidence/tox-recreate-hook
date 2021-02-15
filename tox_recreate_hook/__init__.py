@@ -58,6 +58,12 @@ hookimpl = pluggy.HookimplMarker("tox")
 
 @contextmanager
 def append_to_sys_path(path: PathLike):
+	"""
+	Append ``path`` to :py:obj:`sys.path` for the scope of the :keyword:`with` block.
+
+	:param path:
+	"""
+
 	path = os.fspath(path)
 
 	if path in sys.path:
@@ -74,7 +80,7 @@ def append_to_sys_path(path: PathLike):
 
 
 @hookimpl
-def tox_testenv_create(venv: VirtualEnv, action: Action) -> None:
+def tox_testenv_create(venv: VirtualEnv, action: Action) -> None:  # noqa: D103
 	envconfig: TestenvConfig = venv.envconfig
 	config: Config = envconfig.config
 	toxinidir = config.toxinidir
