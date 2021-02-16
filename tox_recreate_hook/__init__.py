@@ -37,6 +37,7 @@ from types import CodeType
 import pluggy  # type: ignore
 from domdf_python_tools.paths import in_directory
 from domdf_python_tools.typing import PathLike
+from first import first
 from tox import reporter  # type: ignore
 from tox.action import Action  # type: ignore
 from tox.config import Config, TestenvConfig  # type: ignore
@@ -95,22 +96,22 @@ def tox_testenv_create(venv: VirtualEnv, action: Action) -> None:  # noqa: D103
 
 	# The whole process should take place within the toxinidir
 	with in_directory(toxinidir):
-		code: CodeType = compile(f"output = {recreate_hook}", config._cfg.pat, mode="single")
+		code: CodeType = compile(f"output = {recreate_hook}", config._cfg.path, mode="single")
 
 		hook_globals = {"builtin": tox_recreate_hook.hooks}
 
 		# The first value in co_names will be the name of the module to import, if any
 		if code.co_names:
-			module_name = code.co_names[0]
+			module_name = first(code.co_names, key=lambda x: x != "output")
 
-			if module_name != "builtin":
+			if module_name and module_name != "builtin":
 				with append_to_sys_path(toxinidir):
 					hook_globals[module_name] = import_module(module_name)
 
 		# Call the hook
-		exec(code, hook_globals)
+		exec(code, hook_globals)  # pylint: disable=exec-used
 
-		# Retrieve the output message from the hook and print ir
+		# Retrieve the output message from the hook and print it
 		output = hook_globals.get("output", None)
 
 		if output is not None:

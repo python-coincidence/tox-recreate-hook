@@ -15,14 +15,24 @@ tox-recreate-hook
 	:stub-columns: 1
 	:widths: 10 90
 
+	* - Docs
+	  - |docs| |docs_check|
 	* - Tests
-	  - |actions_linux| |actions_windows| |actions_macos|
+	  - |actions_linux| |actions_windows| |actions_macos| |coveralls|
 	* - Activity
 	  - |commits-latest| |commits-since| |maintained|
 	* - QA
 	  - |codefactor| |actions_flake8| |actions_mypy| |pre_commit_ci|
 	* - Other
 	  - |license| |language| |requires|
+
+.. |docs| image:: https://img.shields.io/readthedocs/tox-recreate-hook/latest?logo=read-the-docs
+	:target: https://tox-recreate-hook.readthedocs.io/en/latest
+	:alt: Documentation Build Status
+
+.. |docs_check| image:: https://github.com/domdfcoding/tox-recreate-hook/workflows/Docs%20Check/badge.svg
+	:target: https://github.com/domdfcoding/tox-recreate-hook/actions?query=workflow%3A%22Docs+Check%22
+	:alt: Docs Check Status
 
 .. |actions_linux| image:: https://github.com/domdfcoding/tox-recreate-hook/workflows/Linux/badge.svg
 	:target: https://github.com/domdfcoding/tox-recreate-hook/actions?query=workflow%3A%22Linux%22
@@ -47,6 +57,10 @@ tox-recreate-hook
 .. |requires| image:: https://requires.io/github/domdfcoding/tox-recreate-hook/requirements.svg?branch=master
 	:target: https://requires.io/github/domdfcoding/tox-recreate-hook/requirements/?branch=master
 	:alt: Requirements Status
+
+.. |coveralls| image:: https://img.shields.io/coveralls/github/domdfcoding/tox-recreate-hook/master?logo=coveralls
+	:target: https://coveralls.io/github/domdfcoding/tox-recreate-hook?branch=master
+	:alt: Coverage
 
 .. |codefactor| image:: https://img.shields.io/codefactor/grade/github/domdfcoding/tox-recreate-hook?logo=codefactor
 	:target: https://www.codefactor.io/repository/github/domdfcoding/tox-recreate-hook

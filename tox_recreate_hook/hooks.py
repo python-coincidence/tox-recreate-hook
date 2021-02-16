@@ -41,6 +41,10 @@ __all__ = ["rmdir"]
 def rmdir(path: PathLike) -> str:
 	"""
 	Remove the given directory and its contents.
+
+	:param path:
+
+	:returns: A message in the format :file:`'removing {<path>}'`
 	"""
 
 	path = PathPlus(path)

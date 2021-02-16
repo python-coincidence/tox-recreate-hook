@@ -10,16 +10,25 @@ license: 'MIT'
 short_desc: '(experimental) Allows hooks to be defined which are called when recreating a tox testenv.'
 
 enable_conda: False
-enable_docs: False
-enable_tests: False
 on_pypi: False
 
 python_versions:
- - 3.6
  - 3.7
  - 3.8
  - 3.9
+ - 3.10-dev
+ - pypy3
 
 entry_points:
  tox:
   - recreate = tox_recreate_hook
+
+sphinx_html_theme: furo
+standalone_contrib_guide: true
+docs_fail_on_warning: true
+
+sphinx_conf_epilogue:
+ - nitpicky = True
+
+intersphinx_mapping:
+ - '"tox": ("https://tox.readthedocs.io/en/latest/", None)'
