@@ -96,6 +96,8 @@ def tox_testenv_create(venv: VirtualEnv, action: Action) -> None:  # noqa: D103
 
 	# The whole process should take place within the toxinidir
 	with in_directory(toxinidir):
+		print(f"output = {recreate_hook}")
+		print(config._cfg.path)
 		code: CodeType = compile(f"output = {recreate_hook}", config._cfg.path, mode="single")
 
 		hook_globals = {"builtin": tox_recreate_hook.hooks}
