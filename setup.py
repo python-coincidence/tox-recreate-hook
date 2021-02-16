@@ -13,8 +13,7 @@ sys.path.append('.')
 from __pkginfo__ import *  # pylint: disable=wildcard-import
 
 setup(
-		description=
-		"(experimental) Allows hooks to be defined which are called when recreating a tox testenv.",
+		description="(experimental) Allows hooks to be defined which are called when recreating a tox testenv.",
 		extras_require=extras_require,
 		install_requires=install_requires,
 		py_modules=[],
