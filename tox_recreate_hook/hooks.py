@@ -39,12 +39,22 @@ __all__ = ["rmdir"]
 
 
 def rmdir(path: PathLike) -> str:
-	"""
+	r"""
 	Remove the given directory and its contents.
 
 	:param path:
 
 	:returns: A message in the format :file:`'removing {<path>}'`
+
+	.. attention::
+
+		On Windows-like systems using ``\`` as a path separator
+		you may need to use a *raw string* for the path:
+
+		.. code-block:: ini
+
+			recreate_hook = builtin.rmdir(r"{toxinidir}/doc-source/build")
+
 	"""
 
 	path = PathPlus(path)
