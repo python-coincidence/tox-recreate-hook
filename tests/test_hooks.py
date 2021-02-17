@@ -21,14 +21,16 @@ def test_rmdir_docs(tmp_pathplus, capsys):
 			"deps = sphinx",
 			"skip_install = True",
 			"commands = sphinx-build --version",
-			'recreate_hook = builtin.rmdir("{toxinidir}/doc-source/build")',
+			'recreate_hook = builtin.rmdir(r"{toxinidir}/doc-source/build")',
 			])
 
-	with pytest.raises(SystemExit), in_directory(tmp_pathplus):
-		tox.cmdline(["-e", "docs", "-r"])
+	try:
+		with pytest.raises(SystemExit), in_directory(tmp_pathplus):
+			tox.cmdline(["-e", "docs", "-r"])
 
-	stdout = capsys.readouterr().out
-	print(stdout)
+	finally:
+		stdout = capsys.readouterr().out
+		print(stdout)
 
 	assert (tmp_pathplus / "doc-source").is_dir()
 	assert not build_dir.is_dir()
@@ -49,11 +51,16 @@ def test_rmdir_mypy(tmp_pathplus, capsys):
 			"deps = mypy",
 			"skip_install = True",
 			"commands = mypy --version",
-			'recreate_hook = builtin.rmdir("{toxinidir}/.mypy_cache")',
+			'recreate_hook = builtin.rmdir(r"{toxinidir}/.mypy_cache")',
 			])
 
-	with pytest.raises(SystemExit), in_directory(tmp_pathplus):
-		tox.cmdline(["-e", "mypy", "-r"])
+	try:
+		with pytest.raises(SystemExit), in_directory(tmp_pathplus):
+			tox.cmdline(["-e", "mypy", "-r"])
+
+	finally:
+		stdout = capsys.readouterr().out
+		print(stdout)
 
 	stdout = capsys.readouterr().out
 	print(stdout)
@@ -74,8 +81,13 @@ def test_simple_custom_hook(tmp_pathplus, capsys):
 			'recreate_hook = "hello world"',
 			])
 
-	with pytest.raises(SystemExit), in_directory(tmp_pathplus):
-		tox.cmdline(["-e", "docs", "-r"])
+	try:
+		with pytest.raises(SystemExit), in_directory(tmp_pathplus):
+			tox.cmdline(["-e", "docs", "-r"])
+
+	finally:
+		stdout = capsys.readouterr().out
+		print(stdout)
 
 	stdout = capsys.readouterr().out
 	print(stdout)
@@ -99,8 +111,13 @@ def test_custom_hook(tmp_pathplus, capsys):
 			'\treturn "this is a custom hook"',
 			])
 
-	with pytest.raises(SystemExit), in_directory(tmp_pathplus):
-		tox.cmdline(["-e", "docs", "-r"])
+	try:
+		with pytest.raises(SystemExit), in_directory(tmp_pathplus):
+			tox.cmdline(["-e", "docs", "-r"])
+
+	finally:
+		stdout = capsys.readouterr().out
+		print(stdout)
 
 	stdout = capsys.readouterr().out
 	print(stdout)
@@ -118,8 +135,13 @@ def test_no_hook(tmp_pathplus, capsys):
 			"commands = sphinx-build --version",
 			])
 
-	with pytest.raises(SystemExit), in_directory(tmp_pathplus):
-		tox.cmdline(["-e", "docs", "-r"])
+	try:
+		with pytest.raises(SystemExit), in_directory(tmp_pathplus):
+			tox.cmdline(["-e", "docs", "-r"])
+
+	finally:
+		stdout = capsys.readouterr().out
+		print(stdout)
 
 	stdout = capsys.readouterr().out
 	print(stdout)
@@ -139,11 +161,16 @@ def test_not_recreate(tmp_pathplus, capsys):
 			"deps = sphinx",
 			"skip_install = True",
 			"commands = sphinx-build --version",
-			'recreate_hook = builtin.rmdir("{toxinidir}/doc-source/build")',
+			'recreate_hook = builtin.rmdir(r"{toxinidir}/doc-source/build")',
 			])
 
-	with pytest.raises(SystemExit), in_directory(tmp_pathplus):
-		tox.cmdline(["-e", "docs"])
+	try:
+		with pytest.raises(SystemExit), in_directory(tmp_pathplus):
+			tox.cmdline(["-e", "docs"])
+
+	finally:
+		stdout = capsys.readouterr().out
+		print(stdout)
 
 	stdout = capsys.readouterr().out
 	print(stdout)
