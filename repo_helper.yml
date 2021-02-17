@@ -31,3 +31,14 @@ sphinx_conf_epilogue:
 
 intersphinx_mapping:
  - '"tox": ("https://tox.readthedocs.io/en/latest/", None)'
+
+classifiers:
+ - 'Development Status :: 3 - Alpha'
+ - 'Framework :: tox'
+ - 'Intended Audience :: Developers'
+ - 'Topic :: Software Development :: Testing'
+
+keywords:
+ - tox
+
+min_coverage: 90
