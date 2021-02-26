@@ -1,5 +1,40 @@
 [build-system]
-requires = [ "setuptools>=40.6.0", "wheel>=0.34.2",]
-build-backend = "setuptools.build_meta"
+requires = [ "whey",]
+build-backend = "whey"
 
-[tool.importcheck]
+[project]
+name = "tox-recreate-hook"
+version = "0.0.0"
+description = "(experimental) Allows hooks to be defined which are called when recreating a tox testenv."
+readme = "README.rst"
+keywords = [ "tox",]
+dynamic = [ "requires-python", "classifiers", "dependencies",]
+[[project.authors]]
+email = "dominic@davis-foster.co.uk"
+name = "Dominic Davis-Foster"
+
+[project.license]
+file = "LICENSE"
+
+[project.urls]
+Homepage = "https://github.com/domdfcoding/tox-recreate-hook"
+"Issue Tracker" = "https://github.com/domdfcoding/tox-recreate-hook/issues"
+"Source Code" = "https://github.com/domdfcoding/tox-recreate-hook"
+Documentation = "https://tox-recreate-hook.readthedocs.io/en/latest"
+
+[tool.whey]
+base-classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Framework :: tox",
+    "Intended Audience :: Developers",
+    "Topic :: Software Development :: Testing",
+    "Typing :: Typed",
+]
+python-versions = [ "3.7", "3.8", "3.9",]
+python-implementations = [ "CPython",]
+platforms = [ "Windows", "macOS", "Linux",]
+license-key = "MIT"
+package = "tox_recreate_hook"
+
+[project.entry-points.tox]
+recreate = "tox_recreate_hook"

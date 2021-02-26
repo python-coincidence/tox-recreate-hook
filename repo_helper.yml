@@ -42,3 +42,4 @@ keywords:
  - tox
 
 min_coverage: 90
+use_whey: true
