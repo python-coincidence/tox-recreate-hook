@@ -91,7 +91,7 @@ tox-recreate-hook
 .. |language| image:: https://img.shields.io/github/languages/top/domdfcoding/tox-recreate-hook
 	:alt: GitHub top language
 
-.. |commits-since| image:: https://img.shields.io/github/commits-since/domdfcoding/tox-recreate-hook/v0.0.0
+.. |commits-since| image:: https://img.shields.io/github/commits-since/domdfcoding/tox-recreate-hook/v0.1.0
 	:target: https://github.com/domdfcoding/tox-recreate-hook/pulse
 	:alt: GitHub commits since tagged version
 
