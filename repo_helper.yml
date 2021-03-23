@@ -35,7 +35,9 @@ classifiers:
  - 'Development Status :: 3 - Alpha'
  - 'Framework :: tox'
  - 'Intended Audience :: Developers'
+ - 'Topic :: Software Development :: Quality Assurance'
  - 'Topic :: Software Development :: Testing'
+ - 'Topic :: Software Development :: Testing :: Unit'
 
 keywords:
  - tox
