@@ -9,7 +9,12 @@ version: '0.1.0'
 license: 'MIT'
 short_desc: '(experimental) Allows hooks to be defined which are called when recreating a tox testenv.'
 
+min_coverage: 90
+use_whey: true
 enable_conda: False
+sphinx_html_theme: furo
+standalone_contrib_guide: true
+docs_fail_on_warning: true
 
 python_versions:
  - 3.7
@@ -20,10 +25,6 @@ python_versions:
 entry_points:
  tox:
   - recreate = tox_recreate_hook
-
-sphinx_html_theme: furo
-standalone_contrib_guide: true
-docs_fail_on_warning: true
 
 sphinx_conf_epilogue:
  - nitpicky = True
@@ -41,6 +42,3 @@ classifiers:
 
 keywords:
  - tox
-
-min_coverage: 90
-use_whey: true
