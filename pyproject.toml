@@ -17,9 +17,9 @@ name = "Dominic Davis-Foster"
 file = "LICENSE"
 
 [project.urls]
-Homepage = "https://github.com/domdfcoding/tox-recreate-hook"
-"Issue Tracker" = "https://github.com/domdfcoding/tox-recreate-hook/issues"
-"Source Code" = "https://github.com/domdfcoding/tox-recreate-hook"
+Homepage = "https://github.com/python-coincidence/tox-recreate-hook"
+"Issue Tracker" = "https://github.com/python-coincidence/tox-recreate-hook/issues"
+"Source Code" = "https://github.com/python-coincidence/tox-recreate-hook"
 Documentation = "https://tox-recreate-hook.readthedocs.io/en/latest"
 
 [tool.whey]

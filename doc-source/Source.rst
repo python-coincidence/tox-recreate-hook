@@ -3,13 +3,13 @@ Downloading source code
 =========================
 
 The ``tox-recreate-hook`` source code is available on GitHub,
-and can be accessed from the following URL: https://github.com/domdfcoding/tox-recreate-hook
+and can be accessed from the following URL: https://github.com/python-coincidence/tox-recreate-hook
 
 If you have ``git`` installed, you can clone the repository with the following command:
 
 .. code-block:: bash
 
-    $ git clone https://github.com/domdfcoding/tox-recreate-hook"
+    $ git clone https://github.com/python-coincidence/tox-recreate-hook"
     > Cloning into 'tox-recreate-hook'...
     > remote: Enumerating objects: 47, done.
     > remote: Counting objects: 100% (47/47), done.
