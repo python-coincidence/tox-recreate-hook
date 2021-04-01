@@ -31,22 +31,26 @@ import os
 import sys
 from contextlib import contextmanager
 from importlib import import_module
-from types import CodeType
+from typing import TYPE_CHECKING
 
 # 3rd party
 import pluggy  # type: ignore
 from domdf_python_tools.paths import in_directory
-from domdf_python_tools.typing import PathLike
 from first import first
 from tox import reporter  # type: ignore
-from tox.action import Action  # type: ignore
-from tox.config import Config, TestenvConfig  # type: ignore
-from tox.venv import VirtualEnv  # type: ignore
 
 # this package
 import tox_recreate_hook.hooks
 
-__all__ = ["append_to_sys_path", "tox_testenv_create"]
+if TYPE_CHECKING:
+	# stdlib
+	from types import CodeType
+
+	# 3rd party
+	from domdf_python_tools.typing import PathLike
+	from tox.action import Action  # type: ignore
+	from tox.config import Config, TestenvConfig  # type: ignore
+	from tox.venv import VirtualEnv  # type: ignore
 
 __author__: str = "Dominic Davis-Foster"
 __copyright__: str = "2021 Dominic Davis-Foster"
@@ -54,11 +58,13 @@ __license__: str = "MIT License"
 __version__: str = "0.1.0"
 __email__: str = "dominic@davis-foster.co.uk"
 
+__all__ = ["append_to_sys_path", "tox_testenv_create"]
+
 hookimpl = pluggy.HookimplMarker("tox")
 
 
 @contextmanager
-def append_to_sys_path(path: PathLike):
+def append_to_sys_path(path: "PathLike"):
 	"""
 	Append ``path`` to :py:obj:`sys.path` for the scope of the :keyword:`with` block.
 
@@ -67,7 +73,7 @@ def append_to_sys_path(path: PathLike):
 
 	path = os.fspath(path)
 
-	if path in sys.path:
+	if path in sys.path:  # pragma: no cover
 		yield
 		return
 
@@ -81,10 +87,8 @@ def append_to_sys_path(path: PathLike):
 
 
 @hookimpl
-def tox_testenv_create(venv: VirtualEnv, action: Action) -> None:  # noqa: D103
-	envconfig: TestenvConfig = venv.envconfig
-	config: Config = envconfig.config
-	toxinidir = config.toxinidir
+def tox_testenv_create(venv: "VirtualEnv", action: "Action") -> None:  # noqa: D103
+	envconfig: "TestenvConfig" = venv.envconfig
 
 	if not envconfig.recreate:
 		return
@@ -93,6 +97,9 @@ def tox_testenv_create(venv: VirtualEnv, action: Action) -> None:  # noqa: D103
 
 	if not recreate_hook.strip():
 		return None
+
+	config: "Config" = envconfig.config
+	toxinidir = config.toxinidir
 
 	# The whole process should take place within the toxinidir
 	with in_directory(toxinidir):
