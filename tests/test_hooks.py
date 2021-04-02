@@ -1,19 +1,12 @@
-# stdlib
-import sys
-
 # 3rd party
 import pytest
-import tox  # type: ignore
-import tox.reporter  # type: ignore
 from coincidence.selectors import not_pypy
-from domdf_python_tools.paths import in_directory
+from testing_tox import run_tox
 
 
-def test_rmdir_docs(tmp_pathplus, capsys):
-	tox.reporter._INSTANCE.tw._file = sys.stdout
-
+@pytest.fixture()
+def basic_docs_testenv(tmp_pathplus):
 	build_dir = tmp_pathplus / "doc-source" / "build"
-
 	build_dir.mkdir(parents=True)
 
 	(tmp_pathplus / "tox.ini").write_lines([
@@ -21,29 +14,31 @@ def test_rmdir_docs(tmp_pathplus, capsys):
 			"deps = sphinx",
 			"skip_install = True",
 			"commands = sphinx-build --version",
-			'recreate_hook = builtin.rmdir(r"{toxinidir}/doc-source/build")',
 			])
 
-	try:
-		with pytest.raises(SystemExit), in_directory(tmp_pathplus):
-			tox.cmdline(["-e", "docs", "-r"])
+	return build_dir
 
+
+def test_rmdir_docs(basic_docs_testenv, tmp_pathplus, capsys):
+	with (tmp_pathplus / "tox.ini").open('a') as fp:
+		fp.write('recreate_hook = builtin.rmdir(r"{toxinidir}/doc-source/build")\n')
+
+	try:
+		run_tox(["-e", "docs", "-r"], tmp_pathplus)
 	finally:
 		stdout = capsys.readouterr().out
 		print(stdout)
 
 	assert (tmp_pathplus / "doc-source").is_dir()
-	assert not build_dir.is_dir()
+	assert not basic_docs_testenv.is_dir()
 
-	assert f"docs recreate hook: removing {build_dir}" in stdout
+	assert f"docs recreate hook: removing {basic_docs_testenv}" in stdout
 
 
 @not_pypy("mypy does noy support PyPy")
 def test_rmdir_mypy(tmp_pathplus, capsys):
-	tox.reporter._INSTANCE.tw._file = sys.stdout
 
 	cache_dir = tmp_pathplus / ".mypy_cache"
-
 	cache_dir.mkdir()
 
 	(tmp_pathplus / "tox.ini").write_lines([
@@ -55,56 +50,32 @@ def test_rmdir_mypy(tmp_pathplus, capsys):
 			])
 
 	try:
-		with pytest.raises(SystemExit), in_directory(tmp_pathplus):
-			tox.cmdline(["-e", "mypy", "-r"])
-
+		run_tox(["-e", "mypy", "-r"], tmp_pathplus)
 	finally:
 		stdout = capsys.readouterr().out
 		print(stdout)
-
-	stdout = capsys.readouterr().out
-	print(stdout)
 
 	assert not cache_dir.is_dir()
 
 	assert f"mypy recreate hook: removing {cache_dir}" in stdout
 
 
-def test_simple_custom_hook(tmp_pathplus, capsys):
-	tox.reporter._INSTANCE.tw._file = sys.stdout
-
-	(tmp_pathplus / "tox.ini").write_lines([
-			"[testenv:docs]",
-			"deps = sphinx",
-			"skip_install = True",
-			"commands = sphinx-build --version",
-			'recreate_hook = "hello world"',
-			])
+def test_simple_custom_hook(basic_docs_testenv, tmp_pathplus, capsys):
+	with (tmp_pathplus / "tox.ini").open('a') as fp:
+		fp.write('recreate_hook = "hello world"')
 
 	try:
-		with pytest.raises(SystemExit), in_directory(tmp_pathplus):
-			tox.cmdline(["-e", "docs", "-r"])
-
+		run_tox(["-e", "docs", "-r"], tmp_pathplus)
 	finally:
 		stdout = capsys.readouterr().out
 		print(stdout)
 
-	stdout = capsys.readouterr().out
-	print(stdout)
-
 	assert f"docs recreate hook: hello world" in stdout
 
 
-def test_custom_hook(tmp_pathplus, capsys):
-	tox.reporter._INSTANCE.tw._file = sys.stdout
-
-	(tmp_pathplus / "tox.ini").write_lines([
-			"[testenv:docs]",
-			"deps = sphinx",
-			"skip_install = True",
-			"commands = sphinx-build --version",
-			"recreate_hook = custom_hook.custom_hook()",
-			])
+def test_custom_hook(basic_docs_testenv, tmp_pathplus, capsys):
+	with (tmp_pathplus / "tox.ini").open('a') as fp:
+		fp.write('recreate_hook = custom_hook.custom_hook()\n')
 
 	(tmp_pathplus / "custom_hook.py").write_lines([
 			"def custom_hook() -> str:",
@@ -112,70 +83,37 @@ def test_custom_hook(tmp_pathplus, capsys):
 			])
 
 	try:
-		with pytest.raises(SystemExit), in_directory(tmp_pathplus):
-			tox.cmdline(["-e", "docs", "-r"])
-
+		run_tox(["-e", "docs", "-r"], tmp_pathplus)
 	finally:
 		stdout = capsys.readouterr().out
 		print(stdout)
-
-	stdout = capsys.readouterr().out
-	print(stdout)
 
 	assert f"docs recreate hook: this is a custom hook" in stdout
 
 
-def test_no_hook(tmp_pathplus, capsys):
-	tox.reporter._INSTANCE.tw._file = sys.stdout
-
-	(tmp_pathplus / "tox.ini").write_lines([
-			"[testenv:docs]",
-			"deps = sphinx",
-			"skip_install = True",
-			"commands = sphinx-build --version",
-			])
+def test_no_hook(basic_docs_testenv, tmp_pathplus, capsys):
 
 	try:
-		with pytest.raises(SystemExit), in_directory(tmp_pathplus):
-			tox.cmdline(["-e", "docs", "-r"])
+		run_tox(["-e", "docs", "-r"], tmp_pathplus)
 
 	finally:
 		stdout = capsys.readouterr().out
 		print(stdout)
-
-	stdout = capsys.readouterr().out
-	print(stdout)
 
 	assert "docs recreate hook: " not in stdout
 
 
-def test_not_recreate(tmp_pathplus, capsys):
-	tox.reporter._INSTANCE.tw._file = sys.stdout
-
-	build_dir = tmp_pathplus / "doc-source" / "build"
-
-	build_dir.mkdir(parents=True)
-
-	(tmp_pathplus / "tox.ini").write_lines([
-			"[testenv:docs]",
-			"deps = sphinx",
-			"skip_install = True",
-			"commands = sphinx-build --version",
-			'recreate_hook = builtin.rmdir(r"{toxinidir}/doc-source/build")',
-			])
+def test_not_recreate(basic_docs_testenv, tmp_pathplus, capsys):
+	with (tmp_pathplus / "tox.ini").open('a') as fp:
+		fp.write('recreate_hook = builtin.rmdir(r"{toxinidir}/doc-source/build")\n')
 
 	try:
-		with pytest.raises(SystemExit), in_directory(tmp_pathplus):
-			tox.cmdline(["-e", "docs"])
-
+		run_tox(["-e", "docs"], tmp_pathplus)
 	finally:
 		stdout = capsys.readouterr().out
 		print(stdout)
 
-	stdout = capsys.readouterr().out
-	print(stdout)
-
 	assert (tmp_pathplus / "doc-source").is_dir()
-	assert build_dir.is_dir()
+	assert basic_docs_testenv.is_dir()
 
 	assert "docs recreate hook: " not in stdout
