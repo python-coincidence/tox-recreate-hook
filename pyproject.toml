@@ -41,7 +41,7 @@ license-key = "MIT"
 package = "tox_recreate_hook"
 
 [tool.mkrecipe]
-extras = [ "all",]
+extras = "all"
 conda-channels = [ "python-coincidence",]
 
 [project.entry-points.tox]
