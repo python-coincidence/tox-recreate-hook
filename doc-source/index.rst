@@ -147,6 +147,6 @@ Contents
 
 	View the :ref:`Function Index <genindex>` or browse the `Source Code <_modules/index.html>`__.
 
-	`Browse the GitHub Repository <https://github.com/python-coincidence/tox-recreate-hook>`__
+	:github:repo:`Browse the GitHub Repository <python-coincidence/tox-recreate-hook>`
 
 .. end links
