@@ -91,7 +91,7 @@ tox-recreate-hook
 .. |language| image:: https://img.shields.io/github/languages/top/python-coincidence/tox-recreate-hook
 	:alt: GitHub top language
 
-.. |commits-since| image:: https://img.shields.io/github/commits-since/python-coincidence/tox-recreate-hook/v0.1.0
+.. |commits-since| image:: https://img.shields.io/github/commits-since/python-coincidence/tox-recreate-hook/v0.1.1
 	:target: https://github.com/python-coincidence/tox-recreate-hook/pulse
 	:alt: GitHub commits since tagged version
 
