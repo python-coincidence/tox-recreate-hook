@@ -140,6 +140,7 @@ Contents
 	usage
 	hooks
 	Source
+	license
 
 .. sidebar-links::
 	:caption: Links
