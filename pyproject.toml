@@ -121,5 +121,12 @@ autodoc_exclude_members = [
     "__hash__",
 ]
 
+[tool.mypy]
+python_version = "3.7"
+namespace_packages = true
+check_untyped_defs = true
+warn_unused_ignores = true
+no_implicit_optional = true
+
 [project.entry-points.tox]
 recreate = "tox_recreate_hook"

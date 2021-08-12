@@ -45,3 +45,6 @@ keywords:
 
 exclude_files:
  - contributing
+
+mypy_deps:
+ - types-first
