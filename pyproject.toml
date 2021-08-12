@@ -40,10 +40,6 @@ platforms = [ "Windows", "macOS", "Linux",]
 license-key = "MIT"
 package = "tox_recreate_hook"
 
-[tool.mkrecipe]
-extras = "all"
-conda-channels = [ "python-coincidence",]
-
 [tool.sphinx-pyproject]
 github_username = "python-coincidence"
 github_repository = "tox-recreate-hook"
@@ -62,7 +58,6 @@ extensions = [
     "sphinx_toolbox.tweaks.latex_toc",
     "sphinx.ext.intersphinx",
     "sphinx.ext.mathjax",
-    "sphinxcontrib.httpdomain",
     "sphinxcontrib.extras_require",
     "sphinx.ext.todo",
     "sphinxemoji.sphinxemoji",
@@ -71,6 +66,7 @@ extensions = [
     "sphinxcontrib.default_values",
     "sphinxcontrib.toctree_plus",
     "sphinx_debuginfo",
+    "sphinx_licenseinfo",
     "seed_intersphinx_mapping",
 ]
 sphinxemoji_style = "twemoji"
@@ -120,6 +116,13 @@ autodoc_exclude_members = [
     "__abstractmethods__",
     "__hash__",
 ]
+
+[tool.mypy]
+python_version = "3.7"
+namespace_packages = true
+check_untyped_defs = true
+warn_unused_ignores = true
+no_implicit_optional = true
 
 [project.entry-points.tox]
 recreate = "tox_recreate_hook"
