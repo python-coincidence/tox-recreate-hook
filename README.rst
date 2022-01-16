@@ -99,7 +99,7 @@ tox-recreate-hook
 	:target: https://github.com/python-coincidence/tox-recreate-hook/commit/master
 	:alt: GitHub last commit
 
-.. |maintained| image:: https://img.shields.io/maintenance/yes/2021
+.. |maintained| image:: https://img.shields.io/maintenance/yes/2022
 	:alt: Maintenance
 
 .. |pypi-downloads| image:: https://img.shields.io/pypi/dm/tox-recreate-hook
