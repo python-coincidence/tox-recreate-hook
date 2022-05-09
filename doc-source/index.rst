@@ -129,6 +129,8 @@ Installation
 Contents
 ---------
 
+.. html-section::
+
 .. toctree::
 	:hidden:
 
@@ -136,7 +138,6 @@ Contents
 
 .. toctree::
 	:maxdepth: 3
-	:caption: Documentation
 
 	usage
 	hooks
@@ -149,6 +150,7 @@ Contents
 	:pypi: tox-recreate-hook
 
 	Contributing Guide <https://contributing-to-coincidence.readthedocs.io/en/latest/>
+
 
 .. start links
 

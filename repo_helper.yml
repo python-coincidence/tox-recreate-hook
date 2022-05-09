@@ -28,6 +28,8 @@ entry_points:
 
 sphinx_conf_epilogue:
  - nitpicky = True
+ - needspace_amount = r"5\baselineskip"
+ - 'favicons = [{"rel": "icon", "href": "https://python-coincidence.github.io/assets/coincidence.ico",  "sizes": "48x48", "type": "image/vnd.microsoft.icon"}]'
 
 intersphinx_mapping:
  - '"tox": ("https://tox.readthedocs.io/en/latest/", None)'
@@ -48,3 +50,7 @@ exclude_files:
 
 mypy_deps:
  - types-first
+
+extra_sphinx_extensions:
+ - sphinx_toolbox.more_autosummary.column_widths
+ - sphinx-favicon

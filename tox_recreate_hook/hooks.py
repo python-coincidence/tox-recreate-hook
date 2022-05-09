@@ -48,7 +48,7 @@ def rmdir(path: PathLike) -> str:
 
 	.. attention::
 
-		On Windows-like systems using ``\`` as a path separator
+		To support Windows-like systems using ``\`` as a path separator
 		you may need to use a *raw string* for the path as the ``toxinidir``
 		substitution may contain backslashes:
 
