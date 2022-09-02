@@ -58,8 +58,8 @@ tox-recreate-hook
 		:workflow: mypy
 		:alt: mypy status
 
-	.. |requires| image:: https://dependency-dash.herokuapp.com/github/python-coincidence/tox-recreate-hook/badge.svg
-		:target: https://dependency-dash.herokuapp.com/github/python-coincidence/tox-recreate-hook/
+	.. |requires| image:: https://dependency-dash.repo-helper.uk/github/python-coincidence/tox-recreate-hook/badge.svg
+		:target: https://dependency-dash.repo-helper.uk/github/python-coincidence/tox-recreate-hook/
 		:alt: Requirements Status
 
 	.. |coveralls| coveralls-shield::
