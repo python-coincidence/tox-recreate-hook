@@ -53,4 +53,4 @@ mypy_deps:
 
 extra_sphinx_extensions:
  - sphinx_toolbox.more_autosummary.column_widths
- - sphinx-favicon
+ - sphinx_favicon
