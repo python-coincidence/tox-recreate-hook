@@ -31,13 +31,13 @@ import os
 import sys
 from contextlib import contextmanager
 from importlib import import_module
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Iterator
 
 # 3rd party
-import pluggy  # type: ignore
+import pluggy
 from domdf_python_tools.paths import in_directory
 from first import first
-from tox import reporter  # type: ignore
+from tox import reporter  # type: ignore[import-untyped]
 
 # this package
 import tox_recreate_hook.hooks
@@ -48,9 +48,9 @@ if TYPE_CHECKING:
 
 	# 3rd party
 	from domdf_python_tools.typing import PathLike
-	from tox.action import Action  # type: ignore
-	from tox.config import Config, TestenvConfig  # type: ignore
-	from tox.venv import VirtualEnv  # type: ignore
+	from tox.action import Action  # type: ignore[import-untyped]
+	from tox.config import Config, TestenvConfig  # type: ignore[import-untyped]
+	from tox.venv import VirtualEnv  # type: ignore[import-untyped]
 
 __author__: str = "Dominic Davis-Foster"
 __copyright__: str = "2021 Dominic Davis-Foster"
@@ -64,7 +64,7 @@ hookimpl = pluggy.HookimplMarker("tox")
 
 
 @contextmanager
-def append_to_sys_path(path: "PathLike"):
+def append_to_sys_path(path: "PathLike") -> Iterator[None]:
 	"""
 	Append ``path`` to :py:obj:`sys.path` for the scope of the :keyword:`with` block.
 

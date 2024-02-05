@@ -1,11 +1,12 @@
 # 3rd party
 import pytest
 from coincidence.selectors import not_pypy
+from domdf_python_tools.paths import PathPlus
 from testing_tox import run_tox
 
 
 @pytest.fixture()
-def basic_docs_testenv(tmp_pathplus):
+def basic_docs_testenv(tmp_pathplus: PathPlus) -> PathPlus:
 	build_dir = tmp_pathplus / "doc-source" / "build"
 	build_dir.mkdir(parents=True)
 
@@ -19,7 +20,7 @@ def basic_docs_testenv(tmp_pathplus):
 	return build_dir
 
 
-def test_rmdir_docs(basic_docs_testenv, tmp_pathplus, capsys):
+def test_rmdir_docs(basic_docs_testenv: PathPlus, tmp_pathplus: PathPlus, capsys):
 	with (tmp_pathplus / "tox.ini").open('a') as fp:
 		fp.write('recreate_hook = builtin.rmdir(r"{toxinidir}/doc-source/build")\n')
 
@@ -36,7 +37,7 @@ def test_rmdir_docs(basic_docs_testenv, tmp_pathplus, capsys):
 
 
 @not_pypy("mypy does noy support PyPy")
-def test_rmdir_mypy(tmp_pathplus, capsys):
+def test_rmdir_mypy(tmp_pathplus: PathPlus, capsys):
 
 	cache_dir = tmp_pathplus / ".mypy_cache"
 	cache_dir.mkdir()
@@ -60,7 +61,8 @@ def test_rmdir_mypy(tmp_pathplus, capsys):
 	assert f"mypy recreate hook: removing {cache_dir}" in stdout
 
 
-def test_simple_custom_hook(basic_docs_testenv, tmp_pathplus, capsys):
+@pytest.mark.usefixtures("basic_docs_testenv")
+def test_simple_custom_hook(tmp_pathplus: PathPlus, capsys):
 	with (tmp_pathplus / "tox.ini").open('a') as fp:
 		fp.write('recreate_hook = "hello world"')
 
@@ -73,7 +75,8 @@ def test_simple_custom_hook(basic_docs_testenv, tmp_pathplus, capsys):
 	assert f"docs recreate hook: hello world" in stdout
 
 
-def test_custom_hook(basic_docs_testenv, tmp_pathplus, capsys):
+@pytest.mark.usefixtures("basic_docs_testenv")
+def test_custom_hook(tmp_pathplus: PathPlus, capsys):
 	with (tmp_pathplus / "tox.ini").open('a') as fp:
 		fp.write('recreate_hook = custom_hook.custom_hook()\n')
 
@@ -91,7 +94,8 @@ def test_custom_hook(basic_docs_testenv, tmp_pathplus, capsys):
 	assert f"docs recreate hook: this is a custom hook" in stdout
 
 
-def test_no_hook(basic_docs_testenv, tmp_pathplus, capsys):
+@pytest.mark.usefixtures("basic_docs_testenv")
+def test_no_hook(tmp_pathplus: PathPlus, capsys):
 
 	try:
 		run_tox(["-e", "docs", "-r"], tmp_pathplus)
@@ -103,7 +107,7 @@ def test_no_hook(basic_docs_testenv, tmp_pathplus, capsys):
 	assert "docs recreate hook: " not in stdout
 
 
-def test_not_recreate(basic_docs_testenv, tmp_pathplus, capsys):
+def test_not_recreate(basic_docs_testenv: PathPlus, tmp_pathplus: PathPlus, capsys):
 	with (tmp_pathplus / "tox.ini").open('a') as fp:
 		fp.write('recreate_hook = builtin.rmdir(r"{toxinidir}/doc-source/build")\n')
 
