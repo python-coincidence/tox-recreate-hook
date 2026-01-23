@@ -72,7 +72,7 @@ def test_simple_custom_hook(tmp_pathplus: PathPlus, capsys):
 		stdout = capsys.readouterr().out
 		print(stdout)
 
-	assert f"docs recreate hook: hello world" in stdout
+	assert "docs recreate hook: hello world" in stdout
 
 
 @pytest.mark.usefixtures("basic_docs_testenv")
@@ -91,7 +91,7 @@ def test_custom_hook(tmp_pathplus: PathPlus, capsys):
 		stdout = capsys.readouterr().out
 		print(stdout)
 
-	assert f"docs recreate hook: this is a custom hook" in stdout
+	assert "docs recreate hook: this is a custom hook" in stdout
 
 
 @pytest.mark.usefixtures("basic_docs_testenv")
