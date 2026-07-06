@@ -55,7 +55,6 @@ def rmdir(path: PathLike) -> str:
 		.. code-block:: ini
 
 			recreate_hook = builtin.rmdir(r"{toxinidir}/doc-source/build")
-
 	"""
 
 	path = PathPlus(path)
